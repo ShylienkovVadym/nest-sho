@@ -1,4 +1,12 @@
 {
   "singleQuote": true,
-  "trailingComma": "all"
+  "semi": false,
+  "trailingComma": "all",
+  "importOrder": ["<THIRD_PARTY_MODULES>", "^[./]"],
+  "importOrderCaseInsensitive": true,
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": true,
+  "importOrderParserPlugins": ["typescript", "decorators-legacy"],
+  "useTabs": false,
+  "printWidth": 120
 }

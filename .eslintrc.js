@@ -9,6 +9,8 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    'plugin:import/typescript',
+    'plugin:import/recommended',
   ],
   root: true,
   env: {
@@ -17,9 +19,20 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
+    //'@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-member-accessibility': 'error',
+    //'@typescript-eslint/explicit-module-boundary-types': 'off',
+    //'@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/lines-between-class-members': ['error', 'always'], 'lines-between-class-members': 'off',
+    'import/no-duplicates': ['warn'],
+    //'@typescript-eslint/no-empty-interface': 'off',
+    //'@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-namespace': ['warn', { 'allowDeclarations': true }],
+    "@typescript-eslint/no-unused-vars": ['error', { 'ignoreRestSiblings': true }],
+    '@typescript-eslint/semi': ['error', 'never'], 'semi': 'off',
+    '@typescript-eslint/switch-exhaustiveness-check': 'error',
+    'import/newline-after-import': 'error',
+    //'no-console': 'error',
+    //'unused-imports/no-unused-imports': 'warn',
   },
 };
