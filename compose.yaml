@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+
+  app:
+    build:
+      context: .
+      target: development
+      dockerfile: ./Dockerfile
+    ports:
+      - "3200:3200"
+    networks:
+      - internal-network
+      - external-network
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    command: npm run start:dev
+    restart: always
+    depends_on:
+      db:
+        condition: service_started
+
+  db:
+    image: postgres
+    restart: always
+    networks:
+      - internal-network
+      - external-network
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=example
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+    ports:
+      - "5433:5432"
+volumes:
+  db-data:
+
+networks:
+  internal-network:
+  external-network:

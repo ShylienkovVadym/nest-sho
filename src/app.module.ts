@@ -1,10 +1,21 @@
 import { Module } from '@nestjs/common'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
+import { CqrsModule } from '@nestjs/cqrs'
+import { UserModule } from '@core/domain/user'
+import { commandHandlers } from '@core/application/command/all'
+import { userControllers } from '@interface/controller/user/all'
+import { ConfigModule } from '@nestjs/config'
+import { queryHandlers } from '@core/application/query/all'
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '../.env',
+    }),
+    CqrsModule,
+    UserModule,
+  ],
+  providers: [...commandHandlers, ...queryHandlers],
+  controllers: [...userControllers],
 })
 export class AppModule {}

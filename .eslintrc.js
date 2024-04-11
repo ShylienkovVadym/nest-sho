@@ -34,5 +34,6 @@ module.exports = {
     'import/newline-after-import': 'error',
     //'no-console': 'error',
     //'unused-imports/no-unused-imports': 'warn',
+    'import/no-unresolved': 'off',
   },
 };

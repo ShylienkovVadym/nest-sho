@@ -1,0 +1,14 @@
+import { UserStatus } from '@core/domain/user/entity/enum'
+import { OrderDir } from '@common/enum'
+
+export class UserFindInput {
+  public status?: UserStatus
+
+  public orderBy?: 'firstName' | 'lastName' | 'status' | 'created' | 'updated'
+
+  public orderDir?: OrderDir
+
+  public take?: number
+
+  public skip?: number
+}
