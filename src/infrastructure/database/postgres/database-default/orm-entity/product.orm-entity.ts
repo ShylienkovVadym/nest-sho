@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 import { Uuid } from '@common/type'
 
-@Entity({ name: 'user' })
+@Entity({ name: 'product' })
 export class ProductOrmEntity {
   @PrimaryGeneratedColumn('uuid')
   public readonly id!: Uuid

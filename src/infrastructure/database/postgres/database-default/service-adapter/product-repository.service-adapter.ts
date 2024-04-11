@@ -40,11 +40,11 @@ export class ProductRepositoryServiceAdapter implements ProductRepositoryService
   }
 
   public async update(data: UserUpdateData): Promise<null | Product> {
-    const foundUser = await this.repository.findOneBy({ id: data.id })
-    if (!foundUser) {
+    const foundProduct = await this.repository.findOneBy({ id: data.id })
+    if (!foundProduct) {
       return null
     }
-    const product = this.productEntityMapper.toDomain(foundUser)
+    const product = this.productEntityMapper.toDomain(foundProduct)
     const updatedProduct = this.applyUpdateData(product, data)
     const _productOrmEntity = this.productEntityMapper.toPersistence(updatedProduct)
     const productOrmEntity = await this.repository.save(_productOrmEntity)

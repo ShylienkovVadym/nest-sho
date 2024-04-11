@@ -10,7 +10,7 @@ import { UserOutput } from '@interface/presenter/user/output/user'
 export class UserUpdateController {
   public constructor(private readonly commandBus: CommandBus) {}
 
-  @Post('product/update')
+  @Post('user/update')
   public async userCreate(@Body() input: UserUpdateInput): Promise<null | UserOutput> {
     const command = plainToInstance(UserUpdateCommand, input)
     const user = await this.commandBus.execute<UserUpdateCommand, User>(command)

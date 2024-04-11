@@ -4,9 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { databaseDefaultConfig } from '@infrastructure/database/postgres/database-default/config'
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import { CqrsModule } from '@nestjs/cqrs'
-import { UserOrmEntity } from 'src/infrastructure/database/postgres/database-default/orm-entity'
-import { UserEntityMapper } from '@infrastructure/database/postgres/database-default/entity-mapper'
-import { UserRepositoryServiceAdapter } from '@infrastructure/database/postgres/database-default/service-adapter'
+import { ormEntities } from '@infrastructure/database/postgres/database-default/orm-entity/all'
+import { serviceAdapters } from '@infrastructure/database/postgres/database-default/service-adapter/all'
+import { entityMappers } from '@infrastructure/database/postgres/database-default/entity-mapper/all'
 
 @Module({
   imports: [
@@ -16,9 +16,9 @@ import { UserRepositoryServiceAdapter } from '@infrastructure/database/postgres/
       useFactory: (configService: ConfigService) => <PostgresConnectionOptions>configService.get('databaseDefault'),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([UserOrmEntity]),
+    TypeOrmModule.forFeature([...ormEntities]),
   ],
-  providers: [UserEntityMapper, UserRepositoryServiceAdapter],
-  exports: [UserRepositoryServiceAdapter],
+  providers: [...entityMappers, ...serviceAdapters],
+  exports: [...serviceAdapters],
 })
 export class DatabaseDefaultModule {}

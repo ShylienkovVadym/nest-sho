@@ -10,7 +10,7 @@ import { User } from '@core/domain/user/entity/user'
 export class UserCreateController {
   public constructor(private readonly commandBus: CommandBus) {}
 
-  @Post('product/create')
+  @Post('user/create')
   public async userCreate(@Body() input: UserCreateInput): Promise<UserOutput> {
     const command = plainToInstance(UserCreateCommand, input)
     const user = await this.commandBus.execute<UserCreateCommand, User>(command)

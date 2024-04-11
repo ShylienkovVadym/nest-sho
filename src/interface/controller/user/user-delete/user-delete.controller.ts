@@ -8,7 +8,7 @@ import { plainToInstance } from 'class-transformer'
 export class UserDeleteController {
   public constructor(private readonly commandBus: CommandBus) {}
 
-  @Delete('product/delete')
+  @Delete('user/delete')
   public async userCreate(@Body() input: UserDeleteInput): Promise<void> {
     const command = plainToInstance(UserDeleteCommand, input)
     await this.commandBus.execute<UserDeleteCommand, void>(command)
