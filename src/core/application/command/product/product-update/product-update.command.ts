@@ -9,19 +9,19 @@ export class ProductUpdateCommand implements ProductUpdateData {
   @IsOptional()
   @Length(1, 255)
   @IsString()
-  public productName: string
+  public productName?: null | string
 
   @IsOptional()
   @Length(1, 2000)
   @IsString()
-  public description: string
+  public description?: null | string
 
   @IsOptional()
   @IsNumber()
-  public price: number
+  public price?: null | number
 
   @IsOptional()
   @Length(1, 255)
   @IsString()
-  public brand: string
+  public brand?: null | string
 }

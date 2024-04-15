@@ -3,11 +3,11 @@ import { Uuid } from '@common/type'
 export class ProductUpdateInput {
   public id: Uuid
 
-  public productName?: string
+  public productName?: null | string
 
-  public description?: string
+  public description?: null | string
 
-  public price?: number
+  public price?: null | number
 
-  public brand?: string
+  public brand?: null | string
 }

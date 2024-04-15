@@ -2,8 +2,8 @@ import { Uuid } from '@common/type'
 
 export type ProductUpdateData = {
   id: Uuid
-  productName?: string
-  description?: string
-  price?: number
-  brand?: string
+  productName?: null | string
+  description?: null | string
+  price?: null | number
+  brand?: null | string
 }

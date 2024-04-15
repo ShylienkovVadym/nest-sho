@@ -1,5 +1,5 @@
-import { Product } from '@core/domain/product/entity/product'
+import { Uuid } from '@common/type'
 
 export class ProductDeleteInput {
-  public product: Product
+  public id: Uuid
 }

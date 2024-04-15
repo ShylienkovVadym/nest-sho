@@ -39,14 +39,8 @@ export class ProductRepositoryServiceAdapter implements ProductRepositoryService
     await this.repository.delete(productOrmEntity)
   }
 
-  public async update(data: UserUpdateData): Promise<null | Product> {
-    const foundProduct = await this.repository.findOneBy({ id: data.id })
-    if (!foundProduct) {
-      return null
-    }
-    const product = this.productEntityMapper.toDomain(foundProduct)
-    const updatedProduct = this.applyUpdateData(product, data)
-    const _productOrmEntity = this.productEntityMapper.toPersistence(updatedProduct)
+  public async update(product: Product): Promise<Product> {
+    const _productOrmEntity = this.productEntityMapper.toPersistence(product)
     const productOrmEntity = await this.repository.save(_productOrmEntity)
     return this.productEntityMapper.toDomain(productOrmEntity)
   }
@@ -54,10 +48,7 @@ export class ProductRepositoryServiceAdapter implements ProductRepositoryService
   private query(params: ProductsFindParams): SelectQueryBuilder<ProductOrmEntity> {
     const query = this.repository.createQueryBuilder('product')
 
-    if (
-      params.orderBy &&
-      ['productName', 'description', 'price', 'brand', 'created', 'updated'].includes(params.orderBy)
-    ) {
+    if (params.orderBy) {
       const orderField = `product.${params.orderBy}`
       const orderDir = params.orderDir === OrderDir.Descending ? 'DESC' : 'ASC'
       query.orderBy(orderField, orderDir)
@@ -71,22 +62,5 @@ export class ProductRepositoryServiceAdapter implements ProductRepositoryService
       query.skip(params.skip)
     }
     return query
-  }
-
-  private applyUpdateData(product: Product, data: ProductUpdateData): Product {
-    const { productName, description, price, brand } = data
-    if (productName !== undefined) {
-      product.productName = productName
-    }
-    if (description !== undefined) {
-      product.description = description
-    }
-    if (price !== undefined) {
-      product.price = price
-    }
-    if (brand !== undefined) {
-      product.brand = brand
-    }
-    return product
   }
 }

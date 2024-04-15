@@ -4,9 +4,9 @@ import { UserStatus } from '@core/domain/user/entity/enum'
 export class UserUpdateInput {
   public id: Uuid
 
-  public firstName?: string
+  public firstName?: null | string
 
-  public lastName?: string
+  public lastName?: null | string
 
-  public status?: UserStatus
+  public status?: null | UserStatus
 }

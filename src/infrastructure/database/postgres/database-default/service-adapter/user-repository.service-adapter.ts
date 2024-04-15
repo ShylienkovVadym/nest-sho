@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { UserOrmEntity } from 'src/infrastructure/database/postgres/database-default/orm-entity'
 import { Repository, SelectQueryBuilder } from 'typeorm'
 import { OrderDir } from '@common/enum'
-import { UserUpdateData } from '@core/domain/user/entity/protocol'
+import { UserFields } from '@core/domain/user/entity/enum'
 
 @Injectable()
 export class UserRepositoryServiceAdapter implements UserRepositoryServicePort {
@@ -38,14 +38,8 @@ export class UserRepositoryServiceAdapter implements UserRepositoryServicePort {
     await this.repository.delete(userOrmEntity)
   }
 
-  public async update(data: UserUpdateData): Promise<null | User> {
-    const foundUser = await this.repository.findOneBy({ id: data.id })
-    if (!foundUser) {
-      return null
-    }
-    const user = this.userEntityMapper.toDomain(foundUser)
-    const updatedUser = this.applyUpdateData(user, data)
-    const _userOrmEntity = this.userEntityMapper.toPersistence(updatedUser)
+  public async update(user: User): Promise<User> {
+    const _userOrmEntity = this.userEntityMapper.toPersistence(user)
     const userOrmEntity = await this.repository.save(_userOrmEntity)
     return this.userEntityMapper.toDomain(userOrmEntity)
   }
@@ -57,7 +51,7 @@ export class UserRepositoryServiceAdapter implements UserRepositoryServicePort {
       query.andWhere('product.status = :status', { status: params.status })
     }
 
-    if (params.orderBy && ['firstName', 'lastName', 'status', 'created', 'updated'].includes(params.orderBy)) {
+    if (params.orderBy) {
       const orderField = `user.${params.orderBy}`
       const orderDir = params.orderDir === OrderDir.Descending ? 'DESC' : 'ASC'
       query.orderBy(orderField, orderDir)
@@ -71,19 +65,5 @@ export class UserRepositoryServiceAdapter implements UserRepositoryServicePort {
       query.skip(params.skip)
     }
     return query
-  }
-
-  private applyUpdateData(user: User, data: UserUpdateData): User {
-    const { firstName, lastName, status } = data
-    if (firstName !== undefined) {
-      user.firstName = firstName
-    }
-    if (lastName !== undefined) {
-      user.lastName = lastName
-    }
-    if (status !== undefined) {
-      user.status = status
-    }
-    return user
   }
 }

@@ -1,5 +1,5 @@
 import { UsersFindParams } from '@core/domain/user/service'
-import { UserStatus } from '@core/domain/user/entity/enum'
+import { UserFields, UserStatus } from '@core/domain/user/entity/enum'
 import { OrderDir } from '@common/enum'
 import { IsEnum, IsInt, IsOptional } from 'class-validator'
 
@@ -9,8 +9,8 @@ export class UserFindQuery implements UsersFindParams {
   public status?: UserStatus
 
   @IsOptional()
-  @IsEnum(['firstName', 'lastName', 'status', 'created', 'updated'])
-  public orderBy?: 'firstName' | 'lastName' | 'status' | 'created' | 'updated'
+  @IsEnum(UserFields)
+  public orderBy?: UserFields
 
   @IsOptional()
   @IsEnum(OrderDir)

@@ -12,7 +12,7 @@ export type ProductsFindParams = {
 
 export interface ProductRepositoryServicePort {
   create(product: Product): Promise<Product>
-  update(data: ProductUpdateData): Promise<null | Product>
+  update(data: ProductUpdateData): Promise<Product>
   delete(entity: Product): Promise<void>
   load(id: Uuid): Promise<null | Product>
   find(params: ProductsFindParams): Promise<Product[]>

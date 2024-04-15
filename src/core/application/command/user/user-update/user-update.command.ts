@@ -10,14 +10,14 @@ export class UserUpdateCommand implements UserUpdateData {
   @IsOptional()
   @Length(1, 255)
   @IsString()
-  public firstName: string
+  public firstName?: null | string
 
   @IsOptional()
   @Length(1, 255)
   @IsString()
-  public lastName: string
+  public lastName?: null | string
 
   @IsOptional()
   @IsEnum(UserStatus)
-  public status: UserStatus
+  public status?: null | UserStatus
 }

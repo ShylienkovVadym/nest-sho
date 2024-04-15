@@ -1,5 +1,5 @@
-import { User } from '@core/domain/user/entity/user'
+import { Uuid } from '@common/type'
 
 export class UserDeleteInput {
-  public user: User
+  public id: Uuid
 }
