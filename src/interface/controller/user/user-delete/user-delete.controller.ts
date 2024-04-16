@@ -2,8 +2,8 @@ import { CommandBus } from '@nestjs/cqrs'
 import { Body, Controller, Delete, HttpException, HttpStatus } from '@nestjs/common'
 import { UserDeleteInput } from './input'
 import { UserDeleteCommand } from '@core/application/command'
-import { plainToInstance } from 'class-transformer'
 import { AppError } from '@common/error'
+import { init } from '@common/cqrs'
 
 @Controller('api/')
 export class UserDeleteController {
@@ -11,7 +11,7 @@ export class UserDeleteController {
 
   @Delete('user/delete')
   public async userCreate(@Body() input: UserDeleteInput): Promise<void> {
-    const command = plainToInstance(UserDeleteCommand, input)
+    const command = init(UserDeleteCommand, input)
     try {
       await this.commandBus.execute<UserDeleteCommand, void>(command)
     } catch (error) {

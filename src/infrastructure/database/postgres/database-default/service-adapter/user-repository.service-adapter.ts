@@ -7,7 +7,6 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { UserOrmEntity } from 'src/infrastructure/database/postgres/database-default/orm-entity'
 import { Repository, SelectQueryBuilder } from 'typeorm'
 import { OrderDir } from '@common/enum'
-import { UserFields } from '@core/domain/user/entity/enum'
 
 @Injectable()
 export class UserRepositoryServiceAdapter implements UserRepositoryServicePort {

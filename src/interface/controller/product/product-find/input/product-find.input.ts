@@ -1,7 +1,8 @@
 import { OrderDir } from '@common/enum'
+import { ProductFields } from '@core/domain/product/entity/enum'
 
 export class ProductFindInput {
-  public orderBy?: 'productName' | 'description' | 'price' | 'brand' | 'created' | 'updated'
+  public orderBy?: ProductFields
 
   public orderDir?: OrderDir
 

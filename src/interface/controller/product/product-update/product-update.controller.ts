@@ -2,10 +2,10 @@ import { CommandBus } from '@nestjs/cqrs'
 import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common'
 import { ProductUpdateInput } from './input'
 import { ProductUpdateCommand } from '@core/application/command'
-import { plainToInstance } from 'class-transformer'
 import { Product } from '@core/domain/product/entity/product'
 import { ProductOutput } from '@interface/presenter/user/output/product'
 import { AppError } from '@common/error'
+import { init } from '@common/cqrs'
 
 @Controller('api/')
 export class ProductUpdateController {
@@ -13,7 +13,7 @@ export class ProductUpdateController {
 
   @Post('product/update')
   public async ProductCreate(@Body() input: ProductUpdateInput): Promise<ProductOutput> {
-    const command = plainToInstance(ProductUpdateCommand, input)
+    const command = init(ProductUpdateCommand, input)
     try {
       const product = await this.commandBus.execute<ProductUpdateCommand, Product>(command)
       return new ProductOutput(product)

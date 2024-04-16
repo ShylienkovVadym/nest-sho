@@ -2,9 +2,10 @@ import { Product } from '../entity/product'
 import { OrderDir } from '@common/enum'
 import { Uuid } from '@common/type'
 import { ProductUpdateData } from '@core/domain/product/entity/protocol'
+import { ProductFields } from '@core/domain/product/entity/enum'
 
 export type ProductsFindParams = {
-  orderBy?: 'productName' | 'description' | 'price' | 'brand' | 'created' | 'updated'
+  orderBy?: ProductFields
   orderDir?: OrderDir
   take?: number
   skip?: number

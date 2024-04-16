@@ -1,16 +1,17 @@
-import { IQueryHandler, QueryHandler } from '@nestjs/cqrs'
+import { IQuery, QueryHandler } from '@nestjs/cqrs'
 import { Inject } from '@nestjs/common'
 import { ProductRepositoryService, ProductRepositoryServicePort } from '@core/domain/product/service'
 import { Product } from '@core/domain/product/entity/product'
 import { ProductLoadQuery } from '@core/application/query/product/product-load/product-load.query'
+import { BaseQueryHandler } from '@common/cqrs'
 
 @QueryHandler(ProductLoadQuery)
-export class ProductLoadQueryHandler implements IQueryHandler<ProductLoadQuery, null | Product> {
-  public constructor(
-    @Inject(ProductRepositoryService) private productRepositoryService: ProductRepositoryServicePort,
-  ) {}
+export class ProductLoadQueryHandler extends BaseQueryHandler<IQuery> {
+  public constructor(@Inject(ProductRepositoryService) private productRepositoryService: ProductRepositoryServicePort) {
+    super()
+  }
 
-  public async execute(query: ProductLoadQuery): Promise<null | Product> {
+  public async run(query: ProductLoadQuery): Promise<null | Product> {
     return this.productRepositoryService.load(query.id)
   }
 }

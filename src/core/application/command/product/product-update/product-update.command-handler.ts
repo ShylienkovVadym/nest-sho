@@ -1,18 +1,19 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
+import { CommandHandler, ICommand } from '@nestjs/cqrs'
 import { ProductUpdateCommand } from '.'
 import { Inject } from '@nestjs/common'
 import { ProductRepositoryService, ProductRepositoryServicePort } from '@core/domain/product/service'
 import { Product } from '@core/domain/product/entity/product'
 import { ProductUpdateData } from '@core/domain/product/entity/protocol'
 import { AppError } from '@common/error'
+import { BaseCommandHandler } from '@common/cqrs'
 
 @CommandHandler(ProductUpdateCommand)
-export class ProductUpdateCommandHandler implements ICommandHandler<ProductUpdateCommand, null | Product> {
-  public constructor(
-    @Inject(ProductRepositoryService) private productRepositoryService: ProductRepositoryServicePort,
-  ) {}
+export class ProductUpdateCommandHandler extends BaseCommandHandler<ICommand> {
+  public constructor(@Inject(ProductRepositoryService) private productRepositoryService: ProductRepositoryServicePort) {
+    super()
+  }
 
-  public async execute(command: ProductUpdateCommand): Promise<Product> {
+  public async run(command: ProductUpdateCommand): Promise<Product> {
     const product = await this.productRepositoryService.load(command.id)
     if (!product) {
       throw new AppError('Product with this id does not exist.', '404')

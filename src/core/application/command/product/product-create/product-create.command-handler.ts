@@ -1,16 +1,17 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs'
+import { CommandHandler, ICommand } from '@nestjs/cqrs'
 import { ProductCreateCommand } from '.'
 import { Inject } from '@nestjs/common'
 import { ProductRepositoryService, ProductRepositoryServicePort } from '@core/domain/product/service'
 import { Product } from '@core/domain/product/entity/product'
+import { BaseCommandHandler } from '@common/cqrs'
 
 @CommandHandler(ProductCreateCommand)
-export class ProductCreateCommandHandler implements ICommandHandler<ProductCreateCommand, Product> {
-  public constructor(
-    @Inject(ProductRepositoryService) private productRepositoryService: ProductRepositoryServicePort,
-  ) {}
+export class ProductCreateCommandHandler extends BaseCommandHandler<ICommand> {
+  public constructor(@Inject(ProductRepositoryService) private productRepositoryService: ProductRepositoryServicePort) {
+    super()
+  }
 
-  public async execute(command: ProductCreateCommand): Promise<Product> {
+  public async run(command: ProductCreateCommand): Promise<Product> {
     const product = Product.create(command)
     return this.productRepositoryService.create(product)
   }

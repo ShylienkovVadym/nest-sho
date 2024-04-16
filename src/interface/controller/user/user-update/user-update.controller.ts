@@ -1,13 +1,11 @@
 import { CommandBus } from '@nestjs/cqrs'
 import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common'
 import { UserUpdateInput } from './input'
-import { ProductUpdateCommand, UserUpdateCommand } from '@core/application/command'
-import { plainToInstance } from 'class-transformer'
+import { UserUpdateCommand } from '@core/application/command'
 import { User } from '@core/domain/user/entity/user'
 import { UserOutput } from '@interface/presenter/user/output/user'
-import { Product } from '@core/domain/product/entity/product'
-import { ProductOutput } from '@interface/presenter/user/output/product'
 import { AppError } from '@common/error'
+import { init } from '@common/cqrs'
 
 @Controller('api/')
 export class UserUpdateController {
@@ -15,7 +13,7 @@ export class UserUpdateController {
 
   @Post('user/update')
   public async userCreate(@Body() input: UserUpdateInput): Promise<UserOutput> {
-    const command = plainToInstance(UserUpdateCommand, input)
+    const command = init(UserUpdateCommand, input)
     try {
       const user = await this.commandBus.execute<UserUpdateCommand, User>(command)
       return new UserOutput(user)
