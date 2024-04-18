@@ -2,8 +2,8 @@ import { CommandHandler, ICommand } from '@nestjs/cqrs'
 import { ProductDeleteCommand } from '.'
 import { Inject } from '@nestjs/common'
 import { ProductRepositoryService, ProductRepositoryServicePort } from '@core/domain/product/service'
-import { AppError } from '@common/error'
 import { BaseCommandHandler } from '@common/cqrs'
+import { AppEntityNotFoundException } from '@common/exception'
 
 @CommandHandler(ProductDeleteCommand)
 export class ProductDeleteCommandHandler extends BaseCommandHandler<ICommand> {
@@ -14,7 +14,7 @@ export class ProductDeleteCommandHandler extends BaseCommandHandler<ICommand> {
   public async run(command: ProductDeleteCommand): Promise<void> {
     const product = await this.productRepositoryService.load(command.id)
     if (!product) {
-      throw new AppError('Product with this id does not exist.', '404')
+      throw new AppEntityNotFoundException('Product', { id: command.id })
     }
     await this.productRepositoryService.delete(product)
   }

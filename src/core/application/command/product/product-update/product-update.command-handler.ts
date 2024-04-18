@@ -4,8 +4,8 @@ import { Inject } from '@nestjs/common'
 import { ProductRepositoryService, ProductRepositoryServicePort } from '@core/domain/product/service'
 import { Product } from '@core/domain/product/entity/product'
 import { ProductUpdateData } from '@core/domain/product/entity/protocol'
-import { AppError } from '@common/error'
 import { BaseCommandHandler } from '@common/cqrs'
+import { AppEntityNotFoundException } from '@common/exception'
 
 @CommandHandler(ProductUpdateCommand)
 export class ProductUpdateCommandHandler extends BaseCommandHandler<ICommand> {
@@ -16,7 +16,7 @@ export class ProductUpdateCommandHandler extends BaseCommandHandler<ICommand> {
   public async run(command: ProductUpdateCommand): Promise<Product> {
     const product = await this.productRepositoryService.load(command.id)
     if (!product) {
-      throw new AppError('Product with this id does not exist.', '404')
+      throw new AppEntityNotFoundException('Product', { id: command.id })
     }
     const updatedProduct = this.applyUpdateData(product, command)
     return this.productRepositoryService.update(updatedProduct)

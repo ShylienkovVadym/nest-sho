@@ -1,10 +1,9 @@
 import { CommandBus } from '@nestjs/cqrs'
-import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common'
+import { Body, Controller, Post } from '@nestjs/common'
 import { ProductUpdateInput } from './input'
 import { ProductUpdateCommand } from '@core/application/command'
 import { Product } from '@core/domain/product/entity/product'
 import { ProductOutput } from '@interface/presenter/user/output/product'
-import { AppError } from '@common/error'
 import { init } from '@common/cqrs'
 
 @Controller('api/')
@@ -14,14 +13,7 @@ export class ProductUpdateController {
   @Post('product/update')
   public async ProductCreate(@Body() input: ProductUpdateInput): Promise<ProductOutput> {
     const command = init(ProductUpdateCommand, input)
-    try {
-      const product = await this.commandBus.execute<ProductUpdateCommand, Product>(command)
-      return new ProductOutput(product)
-    } catch (error) {
-      if (error instanceof AppError) {
-        throw new HttpException({ message: error.message, code: error.code }, HttpStatus.NOT_FOUND)
-      }
-      throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR)
-    }
+    const product = await this.commandBus.execute<ProductUpdateCommand, Product>(command)
+    return new ProductOutput(product)
   }
 }

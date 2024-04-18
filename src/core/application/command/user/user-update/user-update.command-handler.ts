@@ -4,8 +4,8 @@ import { Inject } from '@nestjs/common'
 import { UserRepositoryService, UserRepositoryServicePort } from '@core/domain/user/service'
 import { User } from '@core/domain/user/entity/user'
 import { UserUpdateData } from '@core/domain/user/entity/protocol'
-import { AppError } from '@common/error'
 import { BaseCommandHandler } from '@common/cqrs'
+import { AppEntityNotFoundException } from '@common/exception'
 
 @CommandHandler(UserUpdateCommand)
 export class UserUpdateCommandHandler extends BaseCommandHandler<ICommand> {
@@ -16,7 +16,7 @@ export class UserUpdateCommandHandler extends BaseCommandHandler<ICommand> {
   public async run(command: UserUpdateCommand): Promise<User> {
     const user = await this.userRepositoryService.load(command.id)
     if (!user) {
-      throw new AppError('User with this id does not exist.', '404')
+      throw new AppEntityNotFoundException('User', { id: command.id })
     }
     const updatedUser = this.applyUpdateData(user, command)
     return this.userRepositoryService.update(updatedUser)
