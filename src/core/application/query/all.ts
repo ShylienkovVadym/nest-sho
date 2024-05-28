@@ -1,4 +1,4 @@
 import { userQueryHandlers } from './user/all'
-import { productQueryHandlers } from './product/all'
+import { listingQueryHandlers } from '@core/application/query/listing/all'
 
-export const queryHandlers = [...userQueryHandlers, ...productQueryHandlers]
+export const queryHandlers = [...userQueryHandlers, ...listingQueryHandlers]

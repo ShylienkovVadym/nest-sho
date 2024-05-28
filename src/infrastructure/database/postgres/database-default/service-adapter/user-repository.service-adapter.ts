@@ -47,7 +47,7 @@ export class UserRepositoryServiceAdapter implements UserRepositoryServicePort {
     const query = this.repository.createQueryBuilder('user')
 
     if (params.status) {
-      query.andWhere('product.status = :status', { status: params.status })
+      query.andWhere('listing.status = :status', { status: params.status })
     }
 
     if (params.orderBy) {

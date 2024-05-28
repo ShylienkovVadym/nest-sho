@@ -9,6 +9,10 @@ export class UserOutput {
 
   public readonly lastName: string
 
+  public readonly email: string
+
+  public readonly password: string
+
   public readonly status: UserStatus
 
   public readonly created: Date
@@ -19,6 +23,8 @@ export class UserOutput {
     this.id = entity.id
     this.firstName = entity.firstName
     this.lastName = entity.lastName
+    this.email = entity.email
+    this.password = entity.password
     this.status = entity.status
     this.created = entity.created
     this.updated = entity.updated

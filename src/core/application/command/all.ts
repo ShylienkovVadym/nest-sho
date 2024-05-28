@@ -1,4 +1,4 @@
 import { userCommandHandlers } from './user/all'
-import { productCommandHandlers } from './product/all'
+import { listingCommandHandlers } from './listing/all'
 
-export const commandHandlers = [...userCommandHandlers, ...productCommandHandlers]
+export const commandHandlers = [...userCommandHandlers, ...listingCommandHandlers]

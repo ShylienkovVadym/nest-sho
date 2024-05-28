@@ -5,5 +5,7 @@ export type UserUpdateData = {
   id: Uuid
   firstName?: null | string
   lastName?: null | string
+  email?: null | string
+  password?: null | string
   status?: null | UserStatus
 }

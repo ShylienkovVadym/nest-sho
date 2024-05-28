@@ -28,6 +28,28 @@ export class User {
     this.update()
   }
 
+  #email: string
+
+  public get email(): string {
+    return this.#email
+  }
+
+  public set email(email: string) {
+    this.#email = email
+    this.update()
+  }
+
+  #password: string
+
+  public get password(): string {
+    return this.#password
+  }
+
+  public set password(password: string) {
+    this.#password = password
+    this.update()
+  }
+
   #status: UserStatus
 
   public get status(): UserStatus {
@@ -51,6 +73,8 @@ export class User {
     this.id = data.id
     this.#firstName = data.firstName
     this.#lastName = data.lastName
+    this.#email = data.email
+    this.#password = data.password
     this.#status = data.status
     this.created = data.created
     this.#updated = data.updated

@@ -13,6 +13,12 @@ export class UserOrmEntity {
   @Column()
   public readonly lastName!: string
 
+  @Column()
+  public readonly email!: string
+
+  @Column()
+  public readonly password!: string
+
   @Column('enum', { enum: UserStatus })
   public readonly status!: string
 

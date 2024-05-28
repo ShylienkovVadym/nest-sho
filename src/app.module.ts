@@ -5,7 +5,7 @@ import { commandHandlers } from '@core/application/command/all'
 import { ConfigModule } from '@nestjs/config'
 import { queryHandlers } from '@core/application/query/all'
 import { controllers } from '@interface/controller/all'
-import { ProductModule } from '@core/domain/product'
+import { ListingModule } from '@core/domain/listing'
 
 @Module({
   imports: [
@@ -15,7 +15,7 @@ import { ProductModule } from '@core/domain/product'
     }),
     CqrsModule,
     UserModule,
-    ProductModule,
+    ListingModule,
   ],
   providers: [...commandHandlers, ...queryHandlers],
   controllers: [...controllers],

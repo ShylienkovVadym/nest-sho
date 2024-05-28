@@ -23,12 +23,18 @@ export class UserUpdateCommandHandler extends BaseCommandHandler<ICommand> {
   }
 
   private applyUpdateData(user: User, data: UserUpdateData): User {
-    const { firstName, lastName, status } = data
+    const { firstName, lastName, email, password, status } = data
     if (firstName) {
       user.firstName = firstName
     }
     if (lastName) {
       user.lastName = lastName
+    }
+    if (email) {
+      user.email = email
+    }
+    if (password) {
+      user.password = password
     }
     if (status) {
       user.status = status

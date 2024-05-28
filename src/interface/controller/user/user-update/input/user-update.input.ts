@@ -8,5 +8,9 @@ export class UserUpdateInput {
 
   public lastName?: null | string
 
+  public email?: null | string
+
+  public password?: null | string
+
   public status?: null | UserStatus
 }
