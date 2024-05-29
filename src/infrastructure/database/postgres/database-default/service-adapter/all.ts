@@ -1,3 +1,7 @@
-import { ListingRepositoryServiceAdapter, UserRepositoryServiceAdapter } from '.'
+import { CategoryRepositoryServiceAdapter, ListingRepositoryServiceAdapter, UserRepositoryServiceAdapter } from '.'
 
-export const serviceAdapters = [UserRepositoryServiceAdapter, ListingRepositoryServiceAdapter]
+export const serviceAdapters = [
+  UserRepositoryServiceAdapter,
+  ListingRepositoryServiceAdapter,
+  CategoryRepositoryServiceAdapter,
+]

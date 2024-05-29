@@ -1,3 +1,3 @@
-import { ListingOrmEntity, UserOrmEntity } from '.'
+import { CategoryOrmEntity, ListingOrmEntity, UserOrmEntity } from '.'
 
-export const ormEntities = [UserOrmEntity, ListingOrmEntity]
+export const ormEntities = [UserOrmEntity, ListingOrmEntity, CategoryOrmEntity]

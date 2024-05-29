@@ -8,7 +8,7 @@ import { init } from '@common/cqrs'
 export class ListingDeleteController {
   public constructor(private readonly commandBus: CommandBus) {}
 
-  @Delete('listing/delete')
+  @Delete('category/delete')
   public async ListingDelete(@Body() input: ListingDeleteInput): Promise<void> {
     const command = init(ListingDeleteCommand, input)
     await this.commandBus.execute<ListingDeleteCommand, void>(command)

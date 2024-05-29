@@ -1,3 +1,3 @@
-import { ListingEntityMapper, UserEntityMapper } from '.'
+import { CategoryEntityMapper, ListingEntityMapper, UserEntityMapper } from '.'
 
-export const entityMappers = [UserEntityMapper, ListingEntityMapper]
+export const entityMappers = [UserEntityMapper, ListingEntityMapper, CategoryEntityMapper]

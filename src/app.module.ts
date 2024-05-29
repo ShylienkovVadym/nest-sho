@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config'
 import { queryHandlers } from '@core/application/query/all'
 import { controllers } from '@interface/controller/all'
 import { ListingModule } from '@core/domain/listing'
+import { CategoryModule } from '@core/domain/category'
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ListingModule } from '@core/domain/listing'
     CqrsModule,
     UserModule,
     ListingModule,
+    CategoryModule,
   ],
   providers: [...commandHandlers, ...queryHandlers],
   controllers: [...controllers],
